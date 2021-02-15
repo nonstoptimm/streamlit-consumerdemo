@@ -35,9 +35,9 @@ consum_features = ['alcohol', 'books', 'clothes',
     
 cols_dem = ['age', 'hhsize', 'num_child', 'blsurbn', 'income', 'educatio', 'race', 'sex', 'work', 'marital']
 
-median_cols = ['educatio', 'age', 'race', 'empstat', 'occup', 'emptype', 'marital']
-
+median_cols = ['age']
 skip = ['emptype', 'empstat', 'occup', 'age_group']
+most_common = ['educatio', 'marital', 'empstat', 'occup', 'emptype', 'race']
 
 plot_clusters = [
      'alcohol',
@@ -151,6 +151,8 @@ def assemble_cluster_report(people_data):
             continue
         elif column in median_cols:
             cluster_summaries[column] = people_data.groupby(["cluster_nr"])[column].median()
+        elif column in most_common:
+            cluster_summaries[column] = people_data.groupby(["cluster_nr"])[column].agg(pd.Series.mode)
         else:
             cluster_summaries[column] = people_data.groupby(["cluster_nr"])[column].mean()
     
