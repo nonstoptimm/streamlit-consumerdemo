@@ -5,11 +5,13 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import plotly.express as px
+import seaborn as sns
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from scipy.cluster.hierarchy import linkage
 from scipy.cluster.hierarchy import cut_tree
 import plotly.graph_objects as go
+import multiprocessing
 
 consum_features = ['alcohol', 'books', 'clothes',
 	'elect',
@@ -67,9 +69,14 @@ def remove_outliers(df_exp_clean):
 
 # Import consumer expenditure data
 @st.cache
-def process_data(data='Data_consumer_expenditure_survey.csv'):
+def process_data(data='Data_consumer_expenditure_survey.csv', data2='Data_Supplementary_price.csv'):
+    # Expenditure Data
     df_exp = pd.read_csv(data).set_index('newid')
     df_exp['work'] = df_exp['nonwork'].replace('\\N', 0).astype(int)
+    
+    # Supplement data
+    df_sup = pd.read_csv(data2)
+
     # Extract demographic information and assign it to a separate data frame
     df_exp_demographic = df_exp[cols_dem]
     
@@ -87,7 +94,14 @@ def process_data(data='Data_consumer_expenditure_survey.csv'):
     # Standardizing the features to have less variance in the data and make the values across the variables more homogeneous
     expenditures_scaled = StandardScaler().fit_transform(df_exp_clean.values)
 
-    return df_exp_demographic, df_exp_clean, expenditures_scaled
+    return df_exp_demographic, df_exp_clean, expenditures_scaled, df_sup
+
+def get_timeplot(df_sup):
+    # Plot the supplement dataset to gain an overview on how prices develop over the past couple of years
+    df_sup_grouped = df_sup.groupby(['year']).mean().reset_index()
+    dfx = df_sup_grouped.drop(['quarter', 'date'], axis=1).melt('year', var_name='expenditures', value_name='price over year')
+    g = sns.relplot(x="year", y="price over year", kind="line", hue='expenditures', data=dfx, height=6, aspect=2)
+    return g
 
 @st.cache
 # Next, we create the principal components given an amount n and create a plot

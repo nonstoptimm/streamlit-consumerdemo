@@ -38,13 +38,16 @@ st.sidebar.subheader("Made by Timm Walz\nhttps://github.com/nonstoptimm\nMicroso
 
 ### MAIN AREA
 # Import and process data
-df_exp_demographic, df_exp_clean, expenditures_scaled = helper.process_data()
+df_exp_demographic, df_exp_clean, expenditures_scaled, df_sup = helper.process_data()
+timeplot = helper.get_timeplot(df_sup)
 demo_expander = st.beta_expander("Input consumer data")
 demo_expander.write('In this section, the raw consumer data is displayed. The feature selection happened based on common demographic data and expenditure data.')
 demo_expander.subheader('Demographic data')
 demo_expander.dataframe(df_exp_demographic)
 demo_expander.subheader('Expenditure data')
 demo_expander.dataframe(df_exp_clean)
+demo_expander.subheader('Supplement price development over time')
+demo_expander.pyplot(timeplot)
 
 # Explained variance
 var_expander = st.beta_expander("Explained variance")
