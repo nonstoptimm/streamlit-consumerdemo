@@ -1,0 +1,10 @@
+streamlit==0.76.0
+pandas==1.0.1
+numpy==1.18.1
+Pillow==7.1.2
+requests==2.22.0
+spacy==2.2.1
+scipy
+plotly
+scikit-learn
+matplotlib
