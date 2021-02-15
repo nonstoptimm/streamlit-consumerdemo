@@ -1,4 +1,4 @@
-""" MYLA Demo - Digital Lab Assistant """
+""" Consumer Insights Demo """
 import pandas as pd
 import streamlit as st
 import json
@@ -34,7 +34,7 @@ pca_selection = st.sidebar.slider("Number of PCA", min_value=1, max_value=19, va
 cluster_selection = st.sidebar.slider("Number of Clusters", min_value=2, max_value=10, value=6)
 
 # Credits
-st.sidebar.subheader("Made by Timm Walz\nMicrosoft Consulting Services")
+st.sidebar.subheader("Made by Timm Walz\nhttps://github.com/nonstoptimm\nMicrosoft Consulting Services")
 
 ### MAIN AREA
 # Import and process data
