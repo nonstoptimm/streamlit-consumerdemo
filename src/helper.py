@@ -13,25 +13,9 @@ from scipy.cluster.hierarchy import cut_tree
 import plotly.graph_objects as go
 import multiprocessing
 
-consum_features = ['alcohol', 'books', 'clothes',
-	'elect',
-	'food',
-	'foodhome',
-	'foodout',
-	'foodwork',
-	'gambling',
-	'gas',
-	'gasoline',
-	'hlthbeau',
-	'homefuel',
-	'homeval2',
-	'housuppl',
-	'jewelry',
-	'tailors',
-	'telephon',
-	'tobacco',
-	'utility',
-	'water']
+consum_features = ['alcohol', 'books', 'clothes', 'elect', 'food',	'foodhome',	'foodout', 'foodwork', 'gambling', 
+    'gas', 'gasoline', 'hlthbeau', 'homefuel',	'homeval2', 'housuppl',	'jewelry', 'tailors', 'telephon', 
+    'tobacco', 'utility', 'water']
     
 cols_dem = ['age', 'hhsize', 'num_child', 'blsurbn', 'income', 'educatio', 'race', 'sex', 'work', 'marital']
 
